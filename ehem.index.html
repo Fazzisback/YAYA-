@@ -1,0 +1,297 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For My Favorite Person ❤️</title>
+  <style>
+    :root {
+      --bg-color: #ffe6eb;
+      --card-bg: #ffffff;
+      --primary-red: #ff3366;
+      --primary-pink: #ff85a2;
+      --accent-color: #d80032;
+      --text-color: #4a1525;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
+      background: linear-gradient(135deg, #ffe6eb 0%, #ffd1dc 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Floating Background Hearts */
+    .bg-heart {
+      position: absolute;
+      color: rgba(255, 133, 162, 0.35);
+      font-size: 24px;
+      user-select: none;
+      animation: floatUp 8s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-20vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Main Container */
+    .card {
+      background: var(--card-bg);
+      padding: 35px 25px;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(216, 0, 50, 0.15);
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+      z-index: 10;
+      border: 3px solid #ffccd5;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .teddy-header {
+      font-size: 60px;
+      margin-bottom: 10px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      color: var(--text-color);
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      line-height: 1.3;
+    }
+
+    /* Buttons Container */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      min-height: 80px;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
+    }
+
+    .btn-yes {
+      background-color: var(--primary-red);
+      color: white;
+      padding: 12px 28px;
+      font-size: 1.2rem;
+      box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+      z-index: 20;
+    }
+
+    .btn-yes:hover {
+      background-color: var(--accent-color);
+    }
+
+    .btn-no {
+      background-color: #f0f0f0;
+      color: #666;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+    }
+
+    .btn-no:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Final Celebration Section */
+    .final-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      animation: popIn 0.6s ease forwards;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .love-icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-size: 65px;
+      margin: 10px 0;
+    }
+
+    .pulsing-heart {
+      color: var(--accent-color);
+      display: inline-block;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+      100% { transform: scale(1); }
+    }
+
+    .love-message {
+      font-size: 2.2rem;
+      color: var(--accent-color);
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      margin-top: 5px;
+    }
+
+    .sub-message {
+      font-size: 1.1rem;
+      color: var(--text-color);
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating background hearts container -->
+  <div id="hearts-bg"></div>
+
+  <div class="card" id="card">
+    <div class="teddy-header" id="teddy-icon">🧸</div>
+
+    <!-- Question 1 -->
+    <div id="step1">
+      <h1>DO YOU LOVE ME? 🥺</h1>
+      <div class="btn-group">
+        <button class="btn-yes" id="yesBtn1" onclick="nextQuestion(2)">YES! 💕</button>
+        <button class="btn-no" id="noBtn1" onclick="growYes(1)">NO 😜</button>
+      </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div id="step2" style="display: none;">
+      <h1>DO YOU MISS ME? 🥺</h1>
+      <div class="btn-group">
+        <button class="btn-yes" id="yesBtn2" onclick="showFinalScreen()">YES! 💖</button>
+        <button class="btn-no" id="noBtn2" onclick="growYes(2)">NO 😜</button>
+      </div>
+    </div>
+
+    <!-- Final Love Screen -->
+    <div id="finalScreen" class="final-screen">
+      <div class="love-icons">
+        <span>🧸</span>
+        <span>🌹</span>
+        <span class="pulsing-heart">❤️</span>
+      </div>
+      <div class="love-message">I LOVE YOU!</div>
+      <div class="sub-message">Forever & Always 🥰</div>
+    </div>
+  </div>
+
+  <script>
+    // Scale tracker for the "YES" buttons
+    let scale1 = 1;
+    let scale2 = 1;
+
+    // Generate floating hearts background
+    const heartsBg = document.getElementById('hearts-bg');
+    const heartSymbols = ['❤️', '💖', '💗', '💓', '🌸', '💕'];
+    
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'bg-heart';
+      heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDelay = Math.random() * 8 + 's';
+      heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      heartsBg.appendChild(heart);
+    }
+
+    // Function to handle "NO" clicks & enlarge "YES"
+    function growYes(step) {
+      if (step === 1) {
+        scale1 += 0.45;
+        const yesBtn1 = document.getElementById('yesBtn1');
+        yesBtn1.style.transform = `scale(${scale1})`;
+      } else if (step === 2) {
+        scale2 += 0.45;
+        const yesBtn2 = document.getElementById('yesBtn2');
+        yesBtn2.style.transform = `scale(${scale2})`;
+      }
+    }
+
+    // Move from Q1 to Q2
+    function nextQuestion(stepNum) {
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+    }
+
+    // Reveal final romantic screen
+    function showFinalScreen() {
+      document.getElementById('step2').style.display = 'none';
+      document.getElementById('teddy-icon').style.display = 'none';
+      document.getElementById('finalScreen').style.display = 'flex';
+      
+      // Spawn burst of heart particles
+      createHeartBurst();
+    }
+
+    function createHeartBurst() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.innerText = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.left = '50vw';
+        heart.style.top = '50vh';
+        heart.style.fontSize = Math.random() * 25 + 15 + 'px';
+        heart.style.transition = 'all 1s ease-out';
+        heart.style.zIndex = '100';
+        document.body.appendChild(heart);
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * 250 + 50;
+        const x = Math.cos(angle) * dist;
+        const y = Math.sin(angle) * dist;
+
+        setTimeout(() => {
+          heart.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+          heart.style.opacity = '0';
+        }, 50);
+
+        setTimeout(() => heart.remove(), 1050);
+      }
+    }
+  </script>
+</body>
+</html>
